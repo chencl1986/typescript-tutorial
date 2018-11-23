@@ -1,0 +1,261 @@
+
+{
+  // 使用 IntelliSense 了解相关属性。 
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "TypeScript 1 Basic Types",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 1 Basic Types.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 2 Variable Declarations",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 2 Variable Declarations.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 3 Interfaces",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 3 Interfaces.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 4 Classes",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 4 Classes.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 5 Functions",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 5 Functions.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 6. Generics",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 6. Generics.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 7. Enums",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 7. Enums.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 8. Type Inference",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 8. Type Inference.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 9. Type Compatibility",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 9. Type Compatibility.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 10. Advanced Types",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 10. Advanced Types.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 11. Symbols",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 11. Symbols.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 12. Iterators and Generators",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 12. Iterators and Generators.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 13. Modules",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 13. Modules.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 14. Namespaces",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 14. Namespaces.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 15. Namespaces and Modules",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 15. Namespaces and Modules.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 16. Module Resolution",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 16. Module Resolution.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 17. Declaration Merging",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 17. Declaration Merging.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 18. DecoratorsJSX",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 18. DecoratorsJSX.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 19. Mixins",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 19. Mixins.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 20. Triple-Slash Directives",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 20. Triple-Slash Directives.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+    {
+      "name": "TypeScript 21. Type Checking JavaScript Files",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${workspaceRoot}/TypeScript 21. Type Checking JavaScript Files.ts" // 入口文件
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+    },
+  ]
+}
