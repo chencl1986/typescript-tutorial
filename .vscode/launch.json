@@ -10,7 +10,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 1 Basic Types.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 1 Basic Types.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -22,7 +22,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 2 Variable Declarations.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 2 Variable Declarations.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -34,7 +34,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 3 Interfaces.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 3 Interfaces.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -46,7 +46,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 4 Classes.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 4 Classes.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -58,7 +58,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 5 Functions.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 5 Functions.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -70,7 +70,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 6. Generics.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 6. Generics.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -82,7 +82,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 7. Enums.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 7. Enums.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -94,7 +94,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 8. Type Inference.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 8. Type Inference.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -106,7 +106,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 9. Type Compatibility.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 9. Type Compatibility.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -118,7 +118,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 10. Advanced Types.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 10. Advanced Types.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -130,7 +130,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 11. Symbols.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 11. Symbols.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -142,7 +142,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 12. Iterators and Generators.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 12. Iterators and Generators.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -154,7 +154,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 13. Modules.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 13. Modules.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -166,7 +166,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 14. Namespaces.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 14. Namespaces.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -178,7 +178,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 15. Namespaces and Modules.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 15. Namespaces and Modules.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -190,7 +190,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 16. Module Resolution.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 16. Module Resolution.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -202,7 +202,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 17. Declaration Merging.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 17. Declaration Merging.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -214,7 +214,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 18. DecoratorsJSX.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 18. DecoratorsJSX.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -226,7 +226,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 19. Mixins.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 19. Mixins.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -238,7 +238,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 20. Triple-Slash Directives.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 20. Triple-Slash Directives.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
@@ -250,7 +250,7 @@
       "type": "node",
       "request": "launch",
       "args": [
-        "${workspaceRoot}/TypeScript 21. Type Checking JavaScript Files.ts" // 入口文件
+        "${workspaceRoot}/manual_guide/TypeScript 21. Type Checking JavaScript Files.ts" // 入口文件
       ],
       "runtimeArgs": [
         "-r",
