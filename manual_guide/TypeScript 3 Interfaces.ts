@@ -208,6 +208,8 @@ console.log(myStr)
 /* 
 索引签名支持字符串和数字，两种类型的索引可以同时使用。
 数字索引的返回值必须是字符串索引返回值类型的子类型。
+也就是说，若字符串索引设置了number类型，则数字索引只能为number类型。
+若字符串索引设置了number | string类型，则数字索引可为number或string类型。
 */
 
 /* 
@@ -217,6 +219,7 @@ console.log(myStr)
 interface IStringArray1 {
   [index: number]: string
   [propName: string]: number
+  // [propName: string]: number | string  // 设置为number | string，index索引类型可为string
 }
 
 /* 
