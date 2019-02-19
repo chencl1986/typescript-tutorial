@@ -219,7 +219,6 @@ console.log(myStr)
 interface IStringArray1 {
   [index: number]: string
   [propName: string]: number
-  // [propName: string]: number | string  // 设置为number | string，index索引类型可为string
 }
 
 /* 
@@ -228,11 +227,11 @@ interface IStringArray1 {
 
 interface IStringArray2 {
   [index: number]: string
-  [propName: string]: string | number
+  [propName: string]: string | number  // 设置为number | string，index索引类型可为string
 }
 
 /* 
-原因是在JavaScript中通过数字索引时，实际上最终是转换为字符串进行索引，因此数字索引必须是字符串索引的子类型。
+出现以上问题的原因是，在JavaScript中通过数字索引时，实际上最终是转换为字符串进行索引，因此数字索引必须是字符串索引的子类型。
 */
 
 class Animal {
@@ -242,21 +241,27 @@ class Dog extends Animal {
   breed: string;
 }
 
-// 错误：使用数值型的字符串索引，必须是字符串索引的子类型。!
+/* 
+错误：使用数值型的字符串索引，必须是字符串索引的子类型。
+*/
 interface INotOkay {
   [x: number]: Animal // 索引签名的的返回值只能有一种类型。
   [x: number]: Dog  // 同类型的索引签名，只能有一个定义。
   [x: string]: Dog
 }
 
-// 若定义了字符串索引签名，则必须保证所有属性都符合其要求。
+/* 
+若定义了字符串索引签名，则必须保证所有属性都符合其要求。
+*/
 interface INumberDictionary {
   [index: string]: number // 定义了所有索引签名的类型都为number，因此不可再给出非number的定义
   length: number    // 类型与[index: string]: number相同，正确。
   name: string       // name类型与[index: string]: number不同，错误。
 }
 
-// 索引签名设置为只读，不可为未定义的索引赋值。
+/* 
+若索引签名设置为只读，则不可为未定义的索引赋值。
+*/
 interface IReadonlyStringArray {
   readonly [index: number]: string
 }
@@ -264,71 +269,100 @@ const myArray2: IReadonlyStringArray = ['Alice', 'Bob']
 myArray2[2] = 'Mallory' // 不可被赋值。
 console.log(myArray2)
 
-// 7. 类类型
-// 接口可以用来定义类的类型
-// 接口只会检查类的公共部分，即接口中定义的类型属性和方法是否满足要求，而类中私有的部分不会被检查。
+/* 
+7. 类类型
+*/
 
-// interface IClockInterface {
-//   currentTime: Date
-//   setTime(d: Date): void
-// }
+/* 
+实现接口
+*/
 
-// class Clock implements IClockInterface {
-//   public h: number
-//   public m: number
-//   public currentTime: Date
-//   public constructor(h: number, m: number) {
-//     this.h = h
-//     this.m = m
-//   }
-//   public setTime(d: Date) {
-//     this.currentTime = d
-//   }
-// }
+/* 
+接口可以用来定义类的类型
+接口只会检查类的公共部分，即接口中定义的类型属性和方法是否满足要求。
+而类中私有的部分和其他公共部分不会被检查。
+接口中的可选部分，在类中也可以不实现。
+*/
 
-// console.log(Clock)
-
-// 类静态部分与实例部分的区别
-// 类有两个类型：静态部分的类型和实例的类型。
-// 如下用构造器签名定义接口，并定义一个类实现这个接口会报错。
-// 当一个类实现了一个接口时，TypeScript只对其实例部分进行类型检查，constructor存在于类的静态部分，不在检查范围之内。
-
-// interface IClockConstructor {
-//   new(hour: number, minute: number) // 需要提供返回类型
-// }
-
-// class Clock implements IClockConstructor {
-//   public currentTime: Date
-//   public h: number
-//   public m: number
-//   public constructor(h: number, m: number) {
-//     this.h = h
-//     this.m = m
-//   }
-// }
-
-// const clock = new Clock(1, 2)
-// console.log(clock)
-
-// 因此需要定义两个接口IClockConstructor为构造函数使用，IClockInterface为实例方法使用。
-
-// 定义一个构造器接口，它的返回值是接口IClockInterface
-interface IClockConstructor {
-  new(hour: number, minute: number): IClockInterface
+interface IClockInterface1 {
+  currentTime: Date
+  setTime(d: Date): void
 }
 
-// 该接口定义了一个属性为方法tick
-interface IClockInterface {
+class Clock1 implements IClockInterface1 {
+  public h: number
+  public m: number
+  public currentTime: Date
+  public constructor(h: number, m: number) {
+    this.h = h
+    this.m = m
+  }
+  public setTime(d: Date) {
+    this.currentTime = d
+  }
+}
+
+/* 
+类静态部分与实例部分的区别
+*/
+
+/* 
+类有两个类型：静态部分的类型和实例的类型。
+
+静态部分类型：
+interface IClockInterface2 {
   tick(): void
 }
 
-// 创建一个符合IClockInterface接口的对象
-function createClock(Ctor: IClockConstructor, hour: number, minute: number): IClockInterface {
+实例类型:
+interface IClockConstructor1 {
+  new(hour: number, minute: number) // 需要提供返回类型
+}
+*/
+
+/* 
+类只能实现静态部分类型，实例类型用于对已实现的类进行检查。
+如下用构造器签名定义接口，并定义一个类实现这个接口会报错。
+当一个类实现了一个接口时，TypeScript只对其实例部分进行类型检查，constructor存在于类的静态部分，不在检查范围之内。
+*/
+
+interface IClockConstructor1 {
+  new(hour: number, minute: number) // 需要提供返回类型
+}
+
+class Clock2 implements IClockConstructor1 {
+  public currentTime: Date
+  public h: number
+  public m: number
+  public constructor(h: number, m: number) {
+    this.h = h
+    this.m = m
+  }
+}
+
+const clock = new Clock2(1, 2)
+
+/* 
+因此需要定义两个接口，IClockConstructor为构造函数使用，IClockInterface为实例方法使用。
+*/
+
+// 定义一个实例类型接口，用于检查满足IClockInterface2的类。
+interface IClockConstructor2 {
+  new(hour: number, minute: number): IClockInterface2
+}
+
+// 该接口可用于类的实现，也可用于检查基于它实现的实例。
+interface IClockInterface2 {
+  tick(): void
+}
+
+// 方法接收的参数Ctor，为一个实现了接口IClockInterface2的class，返回一个符合IClockInterface2接口的实例。
+function createClock(Ctor: IClockConstructor2, hour: number, minute: number): IClockInterface2 {
   return new Ctor(hour, minute)
 }
 
-// 创建一个类
-class DigitalClock implements IClockInterface {
+// 基于IClockInterface2实现一个类
+class DigitalClock implements IClockInterface2 {
   public h: number
   public m: number
   public constructor(h: number, m: number) {
@@ -340,68 +374,76 @@ class DigitalClock implements IClockInterface {
   }
 }
 
-// class AnalogClock implements IClockInterface {
-//   public h: number
-//   public m: number
-//   public constructor(h: number, m: number) {
-//     this.h = h
-//     this.m = m
-//   }
-//   public tick() {
-//     console.log('tick tock')
-//   }
-// }
+class AnalogClock implements IClockInterface2 {
+  public h: number
+  public m: number
+  public constructor(h: number, m: number) {
+    this.h = h
+    this.m = m
+  }
+  public tick() {
+    console.log('tick tock')
+  }
+}
 
-const digital: IClockInterface = createClock(DigitalClock, 12, 17)
-// const analog: IClockInterface = createClock(AnalogClock, 7, 32)
+const digital: IClockInterface2 = createClock(DigitalClock, 12, 17)
+const analog: IClockInterface2 = createClock(AnalogClock, 7, 32)
 
 console.log(digital)
-// console.log(analog)
+console.log(analog)
 
-// 8. 继承接口
-// 接口可以继承，相当于将两个接口中的属性合并，同时必须保证同名属性的类型一致。
+/* 
+8. 继承接口
+*/
 
-// interface IShape {
-//   color: string
-// }
+/* 
+接口可以继承，相当于将两个接口中的属性合并，同时必须保证同名属性的类型一致。
+*/
 
-// interface ISquare extends IShape {
-//   sideLength: number
-//   // color: number // 继承的接口如果拥有同名属性，属性的类型必须一致。
-//   // color?: string  // 属性是否为可选也必须一致。
-// }
+interface IShape1 {
+  color: string
+}
 
-// const square: ISquare = {
-//   color: 'blue',
-//   sideLength: 10,
-// }
+interface ISquare1 extends IShape1 {
+  sideLength: number
+  color: number // 继承的接口如果拥有同名属性，属性的类型必须一致。
+  color?: string  // 属性是否为可选也必须一致。
+}
 
-// console.log(square)
+const square1: ISquare1 = {
+  color: 'blue',
+  sideLength: 10,
+}
 
-// 接口可以同时继承多个接口。
+/* 
+接口可以同时继承多个接口。
+*/
 
-// interface IShape {
-//   color: string
-// }
+interface IShape2 {
+  color: string
+}
 
-// interface IPenStroke {
-//   penWidth: number
-// }
+interface IPenStroke {
+  penWidth: number
+}
 
-// interface ISquare extends IShape, IPenStroke {
-//   sideLength: number
-// }
+interface ISquare2 extends IShape2, IPenStroke {
+  sideLength: number
+}
 
-// let square: ISquare = {
-//   color: 'blue',
-//   sideLength: 10,
-//   penWidth: 5.0,
-// }
+let square2: ISquare2 = {
+  color: 'blue',
+  sideLength: 10,
+  penWidth: 5.0,
+}
 
-// console.log(square)
+/* 
+9. 混合类型
+*/
 
-// 9. 混合类型
-// 接口可以支持同时定义多种类型，如可将一个函数同时当做对象使用。
+/* 
+接口可以支持同时定义多种类型，如可将一个函数同时当做对象使用。
+*/
 
 interface ICounter {
   (start: number): string
@@ -410,70 +452,52 @@ interface ICounter {
 }
 
 function getCounter(): ICounter {
-  const counter: ICounter = function (start: number): string { return start.toString() }
+  const counter: ICounter = function (start: number): string {
+    return start.toString()
+  }
   counter.interval = 123
   counter.reset = (): void => { console.log(1) }
   return counter
 }
 
 const c = getCounter()
+console.log(c)
 c(10)
-// c.reset && c.reset()
+c.reset && c.reset()
 c.interval = 5.0
 
-// 10. 接口继承类
-// 接口可以继承类类型，但只继承了类类型中成员，但不包括他们的实现，同时会继承类的private和protected成员。
-// 对函数的校验只提现了是否存在，并没有校验函数的传参和返回值类型。
-// 当类类型存在私有成员时，只有该类的子类，即继承该类的类才会具有其私有成员。
-// 因此只有子类才能够使用继承了类类型的接口校验。
+/* 
+10. 接口继承类
+*/
+
+/* 
+接口可以继承类类型，但只继承了类类型中成员，但不包括他们的实现，同时会继承类的private和protected成员。
+当类类型存在私有成员时，只有该类的子类，即继承该类的类才会具有其私有成员。
+因此只有子类才能够使用继承了类类型的接口校验。
+*/
 
 class Control {
-  public h: number
-  public m: number
-  // private state: any
-  public test(str: string): void {
-    console.log(str)
-  }
+  private state: any;
 }
 
-interface ISelectableControl extends Control {
-  select(): void
+interface SelectableControl extends Control {
+  select(): void;
 }
 
-class Button extends Control implements ISelectableControl {
-  public select() {
-    return true
-  }
-  public test(): string {
-    return 'test'
-  }
+// Button类继承了Control类，因此具有了state属性，在实现接口时不报错。
+class Button extends Control implements SelectableControl {
+  select() { }
 }
 
 class TextBox extends Control {
-  public select() {
-    return true
-  }
+  select() { }
 }
 
-// 错误：“Image”类型缺少“state”属性。
-// class Image1 implements ISelectableControl {
-//   select() {
-//     return true
-//   }
-// }
-
-class Location1 implements ISelectableControl {
-  public h: number
-  public m: number
-  public select(): boolean {
-    return true
-  }
-  public test(): boolean {
-    return true
-  }
+// 错误：因Image1未继承Control类，“Image1”类型缺少“state”属性。
+class Image1 implements SelectableControl {
+  select() { }
 }
 
-console.log(Button)
-console.log(TextBox)
-// console.log(Image1)
-console.log(Location1)
+class Location1 {
+
+}
