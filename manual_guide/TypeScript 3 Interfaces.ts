@@ -38,6 +38,7 @@ printLabel({ size: 10, label: 'Size 10 Object' }) // 直接传如未定义参数
 可选属性不是必须的，可在属性名后加?表示。
 可选属性提供了对可能存在的属性进行预定义，以及在引用不存在属性时，会提示拼写错误。
 */
+
 interface ISquareConfig1 {
   color?: string
   width?: number

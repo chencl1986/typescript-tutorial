@@ -149,6 +149,7 @@ catch (e) {
 虽然这些变量“存在”与它的作用域中，但在声明之前它都属于“暂时性死区”，无法被访问到。
 TypeScript编译时会报错。
 */
+
 test1 = 11
 console.log(test1)
 var test1 = 1
@@ -191,12 +192,14 @@ function f3(x) {
 /* 
 而用let声明，一个作用域之内只允许声明一次。
 */
+
 let x = 10;
-// let x = 20; // 错误，不能在1个作用域里多次声明`x`
+let x = 20; // 错误，不能在1个作用域里多次声明`x`
 
 /* 
 在同一个块作用域声明同名变量会报错。
 */
+
 function f4(x) {
   // let x = 100; // error: 声明的变量不可与参数重名.
 }
@@ -209,6 +212,7 @@ function g1() {
 /* 
 同名变量可以声明在不同块作用域中，在某个块作用域内部使用当前域内部声明的变量，若当前域没有声明则向上查找。
 */
+
 function f5(condition, x) {
   if (condition) {
     let x = 100;
@@ -225,6 +229,7 @@ console.log(f5(true, 0));  // returns 100
 由于不同块作用域中的变量互相独立，因此可以用来解决for循环嵌套的问题。
 每次循环中声明的变量i都是独立的，互不干扰，因此该函数可以计算出正确结果。
 */
+
 function sumMatrix2(matrix: number[][]) {
   let sum = 0;
 
@@ -249,6 +254,7 @@ c. 块级作用域变量的获取
 /* 
 通过let声明的变量，也同样可以被函数捕获，在作用域内代码执行完毕后，还可以被读写。
 */
+
 function theCityThatAlwaysSleeps() {
   let getCity;
 
@@ -283,6 +289,7 @@ const声明的是一个常量，它的作用域规则与let相同，但它不可
 const声明的变量不可被重新赋值，但它的内部状态是可以更改的。
 也就是说，如果const声明的变量为对象和数组，是可以修改他们内部的属性和项目的值。
 */
+
 const numLivesForCat = 9;
 const kitty = {
   name: "Aurora",
@@ -290,12 +297,12 @@ const kitty = {
 }
 const arr = [0, 1, 2]
 
-// kitty = {  // 不可重新赋值
-//   name: "Danielle",
-//   numLives: numLivesForCat
-// };
+kitty = {  // 不可重新赋值
+  name: "Danielle",
+  numLives: numLivesForCat
+};
 
-// arr = [0, 1, 3]  // 不可重新赋值
+arr = [0, 1, 3]  // 不可重新赋值
 
 kitty.name = "Rory";  // 内部状态可以更改
 kitty.name = "Kitty";
@@ -321,6 +328,7 @@ a. 解构数组
 first = input[0];
 second = input[1];
 */
+
 let input: [number, number] = [1, 2];
 let [first, second] = input;
 console.log(first); // 1
@@ -329,6 +337,7 @@ console.log(second); // 2
 /* 
 结构也可用于重新赋值。
 */
+
 [first, second] = [second, first];
 console.log(first); // 2
 console.log(second); // 1
@@ -336,6 +345,7 @@ console.log(second); // 1
 /* 
 函数的参数也可以解构
 */
+
 function f6([first, second]: [number, number]) {
   console.log(first);
   console.log(second);
@@ -345,6 +355,7 @@ f6(input);
 /* 
 通过扩展运算符（spread）...创建剩余变量
 */
+
 {
   let [first, ...rest] = [1, 2, 3, 4];
   console.log(first); // outputs 1
