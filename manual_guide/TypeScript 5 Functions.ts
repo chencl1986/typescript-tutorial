@@ -274,18 +274,20 @@ b. this参数
 c. this参数在回调函数里
 */
 
-// 当函数用作回调时，会被当做一个普通函数调用，此时this将为undefined。
+/* 
+addClickListener当函数用作回调时，会被当做一个普通函数调用，此时this将为undefined，因此指定了this的类型为void。
 
-interface UIElement {
-  addClickListener(onclick: (this: void, e: Event) => void): void;
-}
-
-// 此时需要指定this类型，但此时addClickListener要求函数的this类型为void。
+而类Handler的onClickBad方法指定了this的类型为Handler，因此在uiElement.addClickListener(h.onClickBad)时会因this类型不匹配而报错。
+*/
 
 {
+  interface UIElement {
+    addClickListener(onclick: (this: void, e: Event) => void): void;
+  }
+
   class Handler {
     info: string;
-    onClickBad(this: Handler, e: Event) {
+    onClickGood(this: Handler, e: Event) {
       console.log(this)
       // oops, used this here. using this callback would crash at runtime
       this.info = e.message;
@@ -297,73 +299,111 @@ interface UIElement {
       // do something
     }
   }
-  uiElement.addClickListener(h.onClickBad); // error!
+  uiElement.addClickListener(h.onClickGood); // error!
 }
 
-// 若指定了this: void后，则无法使用this.info，因为this不具有Handler类型。
-// 此时就需要使用箭头函数处理。
-/* class Handler {
-  info: string;
-  onClickGood = (e: Event) => { this.info = e.message }
-} */
+/* 
+要修复这个错误有两种方式：
 
-// 箭头函数不会捕获this，所以可以将他们传给期望this: void的函数。
-// 但每个Handler对象都会创建一个箭头函数。另外，方法只会被创建一次，添加到Handler的原型链上。它们在不同的Handler对象间是共享的。
+1) 修改onClickGood中的this参数类型为void，但这样还是无法在onClickGood中使用this
+*/
 
-// 4. 重载
+/* 
+2) 将onClickGood方法修改为箭头函数，因为箭头函数会绑定this到Handler的实例上，即可修复此问题。注意：箭头函数不支持定义this的类型。
+*/
 
-// 函数当函数具有多种返回值时，可以将函数的返回值类型定义为any，但此时就失去了检查的意义了。
 {
-  const suits = ['hearts', 'spades', 'clubs', 'diamonds']
+  interface UIElement {
+    addClickListener(onclick: (this: void, e: Event) => void): void;
+  }
 
-  const pickCard = function (x: any): any {
+  class Handler {
+    info: string;
+    onClickGood = (e: Event) => {
+      console.log(this)
+      // oops, used this here. using this callback would crash at runtime
+      // this.info = e.message;
+    }
+  }
+  let h = new Handler();
+  let uiElement: UIElement = {
+    addClickListener(onclick: (this: void, e: Event) => void) {
+      onclick({} as Event)
+      // do something
+    }
+  }
+  uiElement.addClickListener(h.onClickGood); // error!
+}
+
+/* 
+4. 重载
+*/
+
+/* 
+如下面的函数，当函数具有多种返回值时，可以将函数的返回值类型定义为any，但此时就失去了检查的意义了。
+*/
+
+{
+  let suits = ["hearts", "spades", "clubs", "diamonds"];
+
+  function pickCard1(x): any {
     // Check to see if we're working with an object/array
     // if so, they gave us the deck and we'll pick the card
-    if (typeof x === 'object') {
-      const pickedCard = Math.floor(Math.random() * x.length)
-      return pickedCard
+    if (typeof x == "object") {
+      let pickedCard = Math.floor(Math.random() * x.length);
+      return pickedCard;
     }
     // Otherwise just let them pick the card
-    else if (typeof x === 'number') {
-      const pickedSuit = Math.floor(x / 13)
-      return { suit: suits[pickedSuit], card: x % 13 }
+    else if (typeof x == "number") {
+      let pickedSuit = Math.floor(x / 13);
+      return { suit: suits[pickedSuit], card: x % 13 };
     }
   }
 
-  const myDeck = [{ suit: 'diamonds', card: 2 }, { suit: 'spades', card: 10 }, { suit: 'hearts', card: 4 }]
-  const pickedCard1 = myDeck[pickCard(myDeck)]
-  console.log('card: ' + pickedCard1.card + ' of ' + pickedCard1.suit)
+  let myDeck = [{ suit: "diamonds", card: 2 }, { suit: "spades", card: 10 }, { suit: "hearts", card: 4 }];
+  let pickedCard1 = myDeck[pickCard1(myDeck)];
+  console.log("card: " + pickedCard1.card + " of " + pickedCard1.suit);
 
-  const pickedCard2 = pickCard(15)
-  console.log('card: ' + pickedCard2.card + ' of ' + pickedCard2.suit)
+  let pickedCard2 = pickCard1(15);
+  console.log("card: " + pickedCard2.card + " of " + pickedCard2.suit);
 }
 
-// 可以通过方法重载的方式，定义多个函数类型，编译器会根据函数类型的列表，去调用相应的类型进行检查。
+/* 
+可以通过方法重载的方式，定义多个函数类型，编译器会根据函数类型的重载列表，即前2个函数类型，调用相应的类型进行检查。
 
-const suits = ['hearts', 'spades', 'clubs', 'diamonds']
+第三个函数为函数的定义，function pickCard2(x): any并不是重载列表的一部分，它的定义并不影响类型检查。
 
-function pickCard(x: Array<{ suit: string; card: number; }>): number
-function pickCard(x: number): {
-  suit: string
-  card: number
-}
-function pickCard(x: Array<{ suit: string; card: number; }> | number): any {
-  // Check to see if we're working with an object/array
-  // if so, they gave us the deck and we'll pick the card
-  if (typeof x === 'object') {
-    const pickedCard = Math.floor(Math.random() * x.length)
-    return pickedCard
+即在进行类型检查时，还是以重载列表为准，与函数的定义无关。
+
+对重载列表的检查，也是从上到下依次进行的，因此要把最精确的类型定义放在最前面。
+*/
+
+{
+  let suits = ["hearts", "spades", "clubs", "diamonds"];
+
+  // 重载列表
+  function pickCard2(x: { suit: string; card: number; }[]): number;
+  function pickCard2(x: number): { suit: string; card: number; };
+
+  // 函数定义
+  function pickCard2(x): any {
+    // Check to see if we're working with an object/array
+    // if so, they gave us the deck and we'll pick the card
+    if (typeof x == "object") {
+      let pickedCard = Math.floor(Math.random() * x.length);
+      return pickedCard;
+    }
+    // Otherwise just let them pick the card
+    else if (typeof x == "number") {
+      let pickedSuit = Math.floor(x / 13);
+      return { suit: suits[pickedSuit], card: x % 13 };
+    }
   }
-  // Otherwise just let them pick the card
-  else if (typeof x === 'number') {
-    const pickedSuit = Math.floor(x / 13)
-    return { suit: suits[pickedSuit], card: x % 13 }
-  }
+
+  let myDeck = [{ suit: "diamonds", card: 2 }, { suit: "spades", card: 10 }, { suit: "hearts", card: 4 }];
+  let pickedCard1 = myDeck[pickCard2(myDeck)];
+  console.log("card: " + pickedCard1.card + " of " + pickedCard1.suit);
+
+  let pickedCard2 = pickCard2(15);
+  console.log("card: " + pickedCard2.card + " of " + pickedCard2.suit);
 }
-
-const myDeck = [{ suit: 'diamonds', card: 2 }, { suit: 'spades', card: 10 }, { suit: 'hearts', card: 4 }]
-const pickedCard1 = myDeck[pickCard(myDeck)]
-console.log('card: ' + pickedCard1.card + ' of ' + pickedCard1.suit)
-
-const pickedCard2 = pickCard(15)
-console.log('card: ' + pickedCard2.card + ' of ' + pickedCard2.suit)
