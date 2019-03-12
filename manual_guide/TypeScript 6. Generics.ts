@@ -1,39 +1,67 @@
-export default function (): void {
-  // 泛型
+/*
+TypeScript 教程 Generics 泛型
+*/
 
-  // 1. 泛型
+/* 
+1. 泛型之Hello World
+*/
 
-  // 可将方法的类型通过类型变量T传入方法，可在函数传参和返回值中使用泛型变量T，整个函数就是一个泛型。
-  // 实际使用中可以传入类型参数使用。也可以不传参，利用类型推论，编译器会根据传入的参数自动确定参数T的类型。
+/* 
+假设有这样一个函数，他的参数类型是确定的。
+*/
 
-  (function () {
-    function identity<T>(arg: T): T {
-      return arg
-    }
-    identity(1)
-    identity<number>(2)
-  })()
+function identity1(arg: number): number {
+  return arg;
+}
 
-  // 2. 使用泛型变量
-  // 泛型变量可代表任意类型，这代表着在使用过程中，无法使用可能不具备的属性。如.length，因为.length只有Array和String具备。
-  // 若要使用.length属性，就必须将参数指定为T[]，将传参定义成数组。
+/* 
+如果此时我们需要传入其他类型的参数，校验就无法通过，那么就需要将类型改为any，但是这样就失去了类型检查的意义。
+*/
 
-  ;(function (): void {
-    // function loggingIdentity<T>(arg: T): T {
-    //   console.log(arg.length)  // Error: T doesn't have .length
-    //   return arg
-    // }
+function identity2(arg: any): any {
+  return arg;
+}
 
-    function loggingIdentity<T>(arg: T[]): T[] {
-      console.log(arg.length)  // Array has a .length, so no more error
-      return arg
-    }
-    loggingIdentity<number>([1, 2, 3])
-  })()
+/* 
+可将方法的类型通过类型变量T传入方法，可在函数传参和返回值中使用泛型变量T，整个函数就是一个泛型。
+
+与any类型不同，泛型不会丢失类型信息，并且能够适应多种情况。
+
+实际使用中可以传入类型参数使用。也可以不传参，利用类型推论，编译器会根据传入的参数自动确定参数T的类型。
+
+虽然可以使用类型推论，但在代码复杂的情况下，编译器可能无法自动推断出类型，因此建议在使用时都明确传入类型变量T的类型。
+*/
+
+function identity3<T>(arg: T): T {
+  return arg
+}
+
+identity3(1)
+identity3<number>(2)
+identity3<string>("myString");  // type of output will be 'string'
+
+/* 
+2. 使用泛型变量
+*/
+// 泛型变量可代表任意类型，这代表着在使用过程中，无法使用可能不具备的属性。如.length，因为.length只有Array和String具备。
+// 若要使用.length属性，就必须将参数指定为T[]，将传参定义成数组。
+
+; (function (): void {
+  // function loggingIdentity<T>(arg: T): T {
+  //   console.log(arg.length)  // Error: T doesn't have .length
+  //   return arg
+  // }
+
+  function loggingIdentity<T>(arg: T[]): T[] {
+    console.log(arg.length)  // Array has a .length, so no more error
+    return arg
+  }
+  loggingIdentity<number>([1, 2, 3])
+})()
 
   // 3. 泛型类型
 
-  ;(function (): void {
+  ; (function (): void {
     function identity<T>(arg: T): T {
       return arg
     }
@@ -70,7 +98,7 @@ export default function (): void {
   // 泛型类与泛型接口类似，可使用<>传入泛型类型使用。
   // 类分为静态部分和实例部分，泛型类指的是实例部分的类型，静态属性不能使用泛型类型。
 
-  ;(function (): void {
+  ; (function (): void {
     class GenericNumber<T> {
       zeroValue: T;
       add: (x: T, y: T) => T;
@@ -92,7 +120,7 @@ export default function (): void {
   // 如果我们希望在类中需要使用某些特定属性，如.length，就必须要对泛型类型进行约束，也就是说，限制传入的类型必须包含某些属性。
   // 可以定义一个接口描述约束条件，使用extends关键字实现约束，如T extends ILengthwise
 
-  ;(function (): void {
+  ; (function (): void {
     interface ILengthwise {
       length: number
     }
@@ -126,7 +154,7 @@ export default function (): void {
 
   // 1) 使用泛型创建工厂函数时，需要引用构造函数的类类型。
 
-  ;(function (): void {
+  ; (function (): void {
     function create<T>(C: { new(): T; }): T {
       return new C()
     }
@@ -135,7 +163,7 @@ export default function (): void {
 
   // 2) 可以使用泛型约束限制类中必须包含的属性。
 
-  ;(function (): void {
+  ; (function (): void {
     class BeeKeeper {
       hasMask: boolean;
     }
@@ -163,5 +191,6 @@ export default function (): void {
     console.log(createInstance(Lion))  // typechecks!
     console.log(createInstance(Bee))   // typechecks!
     // console.log(createInstance(BeeKeeper))   // 错误，因为BeeKeeper中不含有numLegs属性
-  })()
-}
+  })()/*
+TypeScript 教程 05：Functions 函数
+*/

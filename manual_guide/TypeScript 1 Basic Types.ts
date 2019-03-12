@@ -25,6 +25,9 @@ console.log(hexLiteral)
 
 /* 
 3. 字符串
+*/
+
+/* 
 TypeScript字符串与JavaScript字符串相同，类型用string表示，可以使用ES6的字符串模板语法。
 */
 
@@ -66,7 +69,9 @@ console.log(list2)
 
 /* 
 元组为已知元素数量和各自类型的数组，每个元素的类型可以不同。
+
 在元组变量声明时若元素数量和类型与定义不同则会报错。
+
 但修改变量时，数量不受限制，而类型需和类型定义保持一致。
 */
 
@@ -112,7 +117,9 @@ console.log(colorName) // Blue
 
 /* 
 任意类型，它可以直接通过类型检查。
-它可以存储任意类型数据，也可以随意修改类型
+
+它可以存储任意类型数据，也可以随意修改类型。
+
 Any类型看上去与Object类型相似，但与Object类型不同的是，Object类型中的方法是不可被调用的，而Any中的方法可以。
 */
 
@@ -156,6 +163,7 @@ mt()
 
 /* 
 存在undefined和null类型，但意义不大。
+
 默认情况下null和undefined是所有类型的子类型。例如可以将Number类型赋值为Null或Undefined，需要在tslint中设置strictNullChecks为true，阻止赋值。
 */
 
@@ -172,6 +180,7 @@ console.log(numTest)
 
 /* 
 Never表示永不存在值的类型，它也是所有值的子类型。
+
 可作为总是会抛出异常的函数，或者是不会有返回值的函数（如无限循环函数）的返回值。
 */
 
