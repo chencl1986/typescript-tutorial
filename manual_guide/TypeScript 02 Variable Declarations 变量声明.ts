@@ -351,7 +351,7 @@ console.log(first); // 1
 console.log(second); // 2
 
 /* 
-结构也可用于重新赋值。
+解构也可用于重新赋值。
 */
 
 [first, second] = [second, first];
@@ -373,20 +373,20 @@ f6(input);
 */
 
 {
-  let [first, ...rest] = [1, 2, 3, 4];
-  console.log(first); // outputs 1
-  console.log(rest); // outputs [ 2, 3, 4 ]
+let [first, ...rest] = [1, 2, 3, 4];
+console.log(first); // outputs 1
+console.log(rest); // outputs [ 2, 3, 4 ]
 }
 
 /* 
 也可以单独解构出某几个元素。
 */
 {
-  let [first] = [1, 2, 3, 4];
-  console.log(first); // outputs 1
-  let [, second, , fourth] = [1, 2, 3, 4];
-  console.log(second);
-  console.log(fourth);
+let [first] = [1, 2, 3, 4];
+console.log(first); // outputs 1
+let [, second, , fourth] = [1, 2, 3, 4];
+console.log(second);
+console.log(fourth);
 }
 
 /* 
@@ -409,8 +409,8 @@ let o = {
 与数组相同，对象也支持通过扩展运算符（spread）...创建剩余变量
 */
 {
-  let { a, ...passthrough } = o;
-  let total = passthrough.b + passthrough.c.length;
+let { a, ...passthrough } = o;
+let total = passthrough.b + passthrough.c.length;
 }
 
 /* 
@@ -468,49 +468,49 @@ e. 展开
 展开操作为浅拷贝。
 */
 {
-  let first = [1, 2];
-  let second = [3, 4];
-  let bothPlus = [0, ...first, ...second, 5]; // 等价于let bothPlus = [0, 1, 2, 3, 4, 5]
+let first = [1, 2];
+let second = [3, 4];
+let bothPlus = [0, ...first, ...second, 5]; // 等价于let bothPlus = [0, 1, 2, 3, 4, 5]
 }
 
 /* 
 对象展开的操作是从左到右，因此如果展开操作之后有同名属性，则之后的值会覆盖之前同名属性的值。
 */
 {
-  let defaults = { food: "spicy", price: "$$", ambiance: "noisy", log: function (): void {
-    console.log('log')
-  } };
-  let search = { ...defaults, food: "rich" }; // 等价于let search = { food: "rich", price: "$$", ambiance: "noisy" }
-  search.log()
+let defaults = { food: "spicy", price: "$$", ambiance: "noisy", log: function (): void {
+  console.log('log')
+} };
+let search = { ...defaults, food: "rich" }; // 等价于let search = { food: "rich", price: "$$", ambiance: "noisy" }
+search.log()
 }
 
 /* 
 若展开的对象中有与展开操作之前同名的属性，则会覆盖之前的属性值。
 */
 {
-  let defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
-  let search = { food: "rich", ...defaults }; // 等价于let search = { food: "spicy", price: "$$", ambiance: "noisy" }
+let defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
+let search = { food: "rich", ...defaults }; // 等价于let search = { food: "spicy", price: "$$", ambiance: "noisy" }
 }
 
 /* 
 对象展开只包含对象自身的可枚举属性，当展开一个对象实例时，它的方法将会丢失。
 */
 {
-  class A {
-    a = 1;
+class A {
+  a = 1;
+}
+class C extends A {
+  constructor() {
+    super()
   }
-  class C extends A {
-    constructor() {
-      super()
-    }
-    p = 12;
-    m() {
-    }
+  p = 12;
+  m() {
   }
-  let c = new C();
-  let clone = { ...c };
-  console.log(c)  // C { a: 1, p: 12 }
-  console.log(clone)  // { a: 1, p: 12 }
-  clone.p; // ok
-  // clone.m(); // error!
+}
+let c = new C();
+let clone = { ...c };
+console.log(c)  // C { a: 1, p: 12 }
+console.log(clone)  // { a: 1, p: 12 }
+clone.p; // ok
+// clone.m(); // error!
 }

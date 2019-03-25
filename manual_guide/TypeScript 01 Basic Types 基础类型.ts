@@ -225,7 +225,7 @@ create(undefined) // Error
 */
 
 /* 
-第一种写法：当使用JSX时，该写法会被认为是JSX，不可使用
+第一种写法：当使用JSX时，该写法会被认为是JSX，不推荐使用
 */
 const valueAssertion1: any = 'string'
 const valueLength1: number = (<string>valueAssertion1).length

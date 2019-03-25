@@ -43,55 +43,64 @@ identity3<string>("myString");  // type of output will be 'string'
 /* 
 2. 使用泛型变量
 */
-// 泛型变量可代表任意类型，这代表着在使用过程中，无法使用可能不具备的属性。如.length，因为.length只有Array和String具备。
-// 若要使用.length属性，就必须将参数指定为T[]，将传参定义成数组。
 
-; (function (): void {
-  // function loggingIdentity<T>(arg: T): T {
-  //   console.log(arg.length)  // Error: T doesn't have .length
-  //   return arg
-  // }
+/* 
+泛型变量可代表任意类型，这代表着在使用过程中，无法使用可能不具备的属性。
 
-  function loggingIdentity<T>(arg: T[]): T[] {
-    console.log(arg.length)  // Array has a .length, so no more error
-    return arg
-  }
-  loggingIdentity<number>([1, 2, 3])
-})()
+如.length，因为.length只有Array和String具备，而编译器会认为泛型变量可能是number。
+*/
 
-  // 3. 泛型类型
+function loggingIdentity1<T>(arg: T): T {
+  console.log(arg.length)  // Error: T doesn't have .length
+  return arg
+}
 
-  ; (function (): void {
-    function identity<T>(arg: T): T {
-      return arg
-    }
+/* 
+如果将泛型变量当做类型的一部分，由它组成了参数arg的类型为T[]，这样参数arg就具备了length属性。
+*/
 
-    // 我们可以像函数类型一样使用泛型类型，泛型参数名可以不同，编译器只关心数量和使用方式的对应。
-    const myIdentity1: <U>(arg: U) => U = identity
-    myIdentity1<number>(1)
+function loggingIdentity2<T>(arg: T[]): T[] {
+  console.log(arg.length)  // Array has a .length, so no more error
+  return arg
+}
+loggingIdentity2<number>([1, 2, 3])
 
-    // 可以使用调用签名的对象字面量来定义泛型函数。
-    const myIdentity2: { <T>(arg: T): T } = identity
-    myIdentity2<number>(2)
+/* 
+3. 泛型类型
+*/
 
-    // 定义一个泛型接口。
-    interface IGenericIdentityFn {
-      <T>(arg: T): T
-    }
+function identity<T>(arg: T): T {
+  return arg
+}
 
-    // 使用泛型类型定义参数的类型。
-    const myIdentity3: IGenericIdentityFn = identity
-    myIdentity3<number>(3)
+/* 
+我们可以像函数类型一样使用泛型类型，`const myIdentity1: <U>(arg: U) => U`表示myIdentity1的类型为泛型参数为U的函数类型(arg: U) => U。
+泛型参数名可以不同，编译器只关心数量和使用方式的对应。
+*/
+const myIdentity1: <U>(arg: U) => U = identity
+myIdentity1<number>(1)
 
-    // 可以将泛型参数作为接口的参数，
-    interface IGenericIdentityFnArg<T> {
-      (arg: T): T
-    }
+// 可以使用调用签名的对象字面量来定义泛型函数。
+const myIdentity2: { <T>(arg: T): T } = identity
+myIdentity2<number>(2)
 
-    // 使用泛型类型定义参数的类型。
-    const myIdentity4: IGenericIdentityFnArg<number> = identity
-    myIdentity4(4)
-  })()
+// 定义一个泛型接口，该接口等同于上一个例子中的字面量。
+interface IGenericIdentityFn {
+  <T>(arg: T): T
+}
+
+// 使用泛型类型定义参数的类型，但此时若不传入类型参数也不会报错。
+const myIdentity3: IGenericIdentityFn = identity
+myIdentity3<number>(3)
+
+// 可以将泛型参数作为接口的参数，这样在使用时就必须传入类型参数来指定泛型类型，这样接口内的成员也可以知道这个参数的类型。
+interface IGenericIdentityFnArg<T> {
+  (arg: T): T
+}
+
+// 使用泛型类型定义参数的类型。
+const myIdentity4: IGenericIdentityFnArg<number> = identity
+myIdentity4(4)
 
   // 4. 泛型类
 
